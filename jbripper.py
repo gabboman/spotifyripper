@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf8 -*-
+# -*- coding: utf-8 -*-
 
 from subprocess import call, Popen, PIPE
 from spotify import Link, Image
@@ -26,9 +26,9 @@ def shell(cmdline): # execute shell commands (unicode support)
 def rip_init(session, track):
     global pipe, ripping, pcmfile, rawpcm
     num_track = "%02d" % (track.index(),)
-    mp3file = track.name()+".mp3"
-    pcmfile = track.name()+".pcm"
-    directory = os.getcwd() + "/" + track.artists()[0].name() + "/" + track.album().name() + "/"
+    mp3file = track.name().encode("utf-8")+".mp3"
+    pcmfile = track.name().encode("utf-8")+".pcm"
+    directory = os.getcwd() + "/" + track.artists()[0].name().encode("utf-8") + "/" + track.album().name().encode("utf-8") + "/"
     if not os.path.exists(directory):
         os.makedirs(directory)
     printstr("ripping " + mp3file + " ...")
@@ -57,12 +57,12 @@ def rip(session, frames, frame_size, num_frames, sample_type, sample_rate, chann
 
 def rip_id3(session, track): # write ID3 data
     num_track = "%02d" % (track.index(),)
-    mp3file = track.name()+".mp3"
-    artist = track.artists()[0].name()
-    album = track.album().name()
-    title = track.name()
+    mp3file = track.name().encode("utf-8")+".mp3"
+    artist = track.artists()[0].name().encode("utf-8")
+    album = track.album().name().encode("utf-8")
+    title = track.name().encode("utf-8")
     year = track.album().year()
-    directory = os.getcwd() + "/" + track.artists()[0].name() + "/" + track.album().name() + "/"
+    directory = os.getcwd() + "/" + track.artists()[0].name().encode("utf-8") + "/" + track.album().name().encode("utf-8") + "/"
 
     # download cover
     image = session.image_create(track.album().cover())

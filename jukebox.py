@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf8 -*-
+# -*- coding: utf-8 -*-
 
 import cmd
 import logging
@@ -377,7 +377,7 @@ class Jukebox(SpotifySessionManager):
             self.stop()
         self.new_track_playing(track)
         self.session.load(track)
-        print "Loaded track: %s" % track.name()
+        print "Loaded track: %s" % track.name().encode("utf-8")
 
     def load(self, playlist, track):
         if self.playing:
@@ -389,7 +389,7 @@ class Jukebox(SpotifySessionManager):
         spot_track = pl[track]
         self.new_track_playing(spot_track)
         self.session.load(spot_track)
-        print "Loading %s from %s" % (spot_track.name(), pl.name())
+        print "Loading %s from %s" % (spot_track.name().encode("utf-8"), pl.name())
 
     def load_playlist(self, playlist):
         if self.playing:
@@ -412,7 +412,7 @@ class Jukebox(SpotifySessionManager):
         if self.playing:
             self._queue.append((playlist, track))
         else:
-            print 'Loading %s', track.name()
+            print 'Loading %s', track.name().encode("utf-8")
             self.load(playlist, track)
             self.play()
 
@@ -458,7 +458,7 @@ class Jukebox(SpotifySessionManager):
             while not browser.is_loaded():
                 time.sleep(0.1)
             for track in browser:
-                print track.name()
+                print track.name().encode("utf-8")
         if link.type() == link.LINK_ARTIST:
             browser = ArtistBrowser(link.as_artist())
             while not browser.is_loaded():
