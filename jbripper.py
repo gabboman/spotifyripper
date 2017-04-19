@@ -113,18 +113,21 @@ class RipperThread(threading.Thread):
         # ripping loop
         session = self.ripper.session
         for track in itrack:
+                try:
 
-                self.ripper.load_track(track)
+                    self.ripper.load_track(track)
 
-                rip_init(session, track)
+                    rip_init(session, track)
 
-                self.ripper.play()
+                    self.ripper.play()
 
-                end_of_track.wait()
-                end_of_track.clear() # TODO check if necessary
+                    end_of_track.wait()
+                    end_of_track.clear() # TODO check if necessary
 
-                rip_terminate(session, track)
-                rip_id3(session, track)
+                    rip_terminate(session, track)
+                    rip_id3(session, track)
+                except:
+                    print('ERROR with a track')
 
         self.ripper.disconnect()
 
